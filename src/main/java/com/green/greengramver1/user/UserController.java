@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserService service;
 
-    @PostMapping
+
+    @PostMapping("sign-up")
     @Operation(summary = "회원 가입")
     public ResultResponse<Integer> signUp(@RequestBody UserInsReq p) {
         int result = 0;
@@ -28,6 +29,7 @@ public class UserController {
                 .resultData(result)
                 .build();
     }
+
 }
 
 
