@@ -1,6 +1,15 @@
+# custom property (절대경로 Absolute Path)
+file:
+  directory: D:\khj\2024-02\download\greengram_ver1
+
 # mybatis setting
 mybatis:
   mapper-locations: xml/**/*.xml
+
+# Base URL setting
+#server:
+#  servlet:
+#    context-path: /api
 
 spring:
   application:
