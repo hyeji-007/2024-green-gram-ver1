@@ -11,6 +11,10 @@ spring:
     username: root
     password: green502
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+
 springdoc:
   swagger-ui:
     default-model-expand-depth: 10
