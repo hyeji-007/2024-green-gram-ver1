@@ -1,10 +1,11 @@
 package com.green.greengramver1.user;
 
 import com.green.greengramver1.common.MyFileUtils;
-import com.green.greengramver1.user.model.UserInsReq;
+import com.green.greengramver1.user.model.UserSignInReq;
+import com.green.greengramver1.user.model.UserSignInRes;
+import com.green.greengramver1.user.model.UserSignUpReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,11 +19,11 @@ public class UserService {
     private final UserMapper mapper;
     private final MyFileUtils myFileUtils;
 
-    public int postSignUp(MultipartFile pic, UserInsReq p) {
+    public int postSignUp(MultipartFile pic, UserSignUpReq p) {
         //프로필 이미지 파일 처리
         //String savedPicName = myFileUtils.makeRandomFileName(pic.getOriginalFilename());
         // 위와 같은 결과가 나왔으면 좋겠다.
-        String savedPicName = pic != null ? myFileUtils.makeRandomFileName(pic) : null;
+        String savedPicName = (pic != null ? myFileUtils.makeRandomFileName(pic) : null); //pic이 null이 아닐 경우 메소드 호출
 
         String hashedPassword = BCrypt.hashpw(p.getUpw(), BCrypt.gensalt());
         log.info("hashedPassword: {}", hashedPassword);
@@ -35,7 +36,9 @@ public class UserService {
             return result;
         }
 
-        // user/${userId}/${savedPicName}
+        // 저장 위치 만든다.
+        // middlePath = user/${userId}
+        // filePath = user/${userId}/${savedPicName}
         long userId = p.getUserId(); // userId를 insert 후에 얻을 수 있다.
         String middlePath = String.format("user/%d", userId);
         myFileUtils.makeFolders(middlePath);
@@ -48,5 +51,23 @@ public class UserService {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public UserSignInRes postSignIn(UserSignInReq p) {
+        UserSignInRes res = mapper.selUserForSignIn(p);
+        if(res == null) { //해당하는 아이디가 없음
+            res = new UserSignInRes();
+            res.setMessage("아이디를 확인해 주세요.");
+            return res;
+        }
+
+        if(  !BCrypt.checkpw(p.getUpw(), res.getUpw()) ) { // 비밀번호가 다를시
+            res = new UserSignInRes();
+            res.setMessage("비밀번호를 확인해 주세요.");
+            return res;
+        }
+
+        res.setMessage("로그인 성공");
+        return res;
     }
 }

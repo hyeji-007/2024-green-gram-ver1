@@ -2,7 +2,6 @@ package com.green.greengramver1.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,7 +9,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class UserInsReq {
+public class UserSignUpReq {
     @JsonIgnore
     private long userId;
 
