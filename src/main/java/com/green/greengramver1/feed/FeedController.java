@@ -27,7 +27,10 @@ public class FeedController {
                                               , @RequestPart FeedPostReq p) {
 
         FeedPostRes res = service.postFeed(pics, p);
-        return null;
+        return ResultResponse.<FeedPostRes>builder()
+                .resultMessage("피드 등록 완료")
+                .resultData(res)
+                .build();
 
     }
 }

@@ -10,9 +10,9 @@
     </insert>
 
     <insert id="insFeedPic">
-        INSERT INTO feed
+        INSERT INTO feed_pics
         SET feed_id = #{feedId}
-        , pic = #{pic}
+          , pic = #{pic}
     </insert>
 
 </mapper>

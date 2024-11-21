@@ -1,6 +1,7 @@
 package com.green.greengramver1.feed;
 
 import com.green.greengramver1.common.MyFileUtils;
+import com.green.greengramver1.common.model.ResultResponse;
 import com.green.greengramver1.feed.model.FeedPicDto;
 import com.green.greengramver1.feed.model.FeedPostReq;
 import com.green.greengramver1.feed.model.FeedPostRes;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -35,8 +37,11 @@ public class FeedService {
         feedPicDto.setFeedId(feedId);
         //feedPicDto에 feedId값 넣어주세요.
 
+        List<String> picsStr = new ArrayList<String>();
+
         for (MultipartFile pic : pics) {
             String savedPicName = myFileUtils.makeRandomFileName(pic);
+            // 사진 이름 다르게 바뀌도록 랜덤 이름 출력
             String filePath = String.format("%s/%s", middlePath, savedPicName);
 
             try {
@@ -45,10 +50,15 @@ public class FeedService {
                 e.printStackTrace();
             }
             feedPicDto.setPic(savedPicName);
-            mapper.insFeedPic(feedPicDto); //만들어주세요.
+            mapper.insFeedPic(feedPicDto);
+            picsStr.add(savedPicName);
         }
 
-        return null;
+        FeedPostRes res = new FeedPostRes();
+        res.setFeedId(p.getFeedId());
+        res.setPics(picsStr);
+
+        return res;
     }
 
 
