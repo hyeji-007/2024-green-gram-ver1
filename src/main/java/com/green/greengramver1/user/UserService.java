@@ -27,10 +27,10 @@ public class UserService {
 
         String hashedPassword = BCrypt.hashpw(p.getUpw(), BCrypt.gensalt());
         log.info("hashedPassword: {}", hashedPassword);
-        p.setUpw(hashedPassword);
+        p.setUpw(hashedPassword); //교체 >> 원래 비밀번호 날아감
         p.setPic(savedPicName);
 
-        int result = mapper.insUser(p);
+        int result = mapper.insUser(p); //insert 처리
 
         if(pic == null) {
             return result;

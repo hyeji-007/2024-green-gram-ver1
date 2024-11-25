@@ -56,7 +56,7 @@ public class MyFileUtils {
 
     //업로드된 파일의 이름에서 확장자를 포함한 새로운 랜덤 파일명을 생성
     public String makeRandomFileName(MultipartFile file) {
-        return makeRandomFileName(file.getOriginalFilename()); //확장자명 얻기 위해
+        return makeRandomFileName(file.getOriginalFilename()); //확장자명 얻기 위해, getOriginalFilename(): return 메소드
     }
 
     //파일을 원하는 경로에 저장
