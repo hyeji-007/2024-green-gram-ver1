@@ -15,4 +15,28 @@
           , pic = #{pic}
     </insert>
 
+    <select id="selFeedList">
+        SELECT
+            A.feed_id AS feedId, A.contents, A.location, A.created_at AS createdAt
+            , B.user_id AS writerId
+            , B.uid
+            , B.nick_name AS nickName
+            , if(B.nick_name IS NULL, B.uid, B.nick_name) AS writerNm
+            , B.pic AS writerPic
+        FROM feed A
+        JOIN user B
+        ON A.writer_user_id = B.user_id
+        ORDER BY A.feed_id DESC
+        LIMIT #{startIdx}, #{size}
+    </select>
+
+
+    <!-- //////////////////////// feed_pics //////////// -->
+
+    <select id="selFeedPicList">
+        SELECT pic
+        FROM feed_pics
+        WHERE feed_id = #{feedId}
+    </select>
+
 </mapper>

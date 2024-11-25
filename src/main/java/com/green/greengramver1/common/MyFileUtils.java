@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Slf4j
-@Component // 빈등록: spring container에게 객체 관리를 해달라고 하는 것
+@Component // 빈등록: spring container에게 객체 관리를 해달라고 하는 것 >> 필요한 것: 생성자 호출(생성자: class와 이름이 똑같고 return 타입을 적지 않는다.)
 // 그리고 그 주소값을 가지고 있다가 필요할 때 달라고 하면 준다.
 // 기본적으로 싱글톤(객체를 딱 하나만 만든다), shallow copy(항상 같은 값을 준다)
 public class MyFileUtils {
@@ -28,11 +28,19 @@ public class MyFileUtils {
     }
 
     // path = "ddd/aaa"
-    // D:\khj\2024-02\download\greengram_ver1/ddd/aaa
+    // D:\khj\2024-02\download\greengram_ver1/ddd/aaa >> uploadPath에 저장
     // 디렉토리 생성
-    public String makeFolders(String path) {
-        File file = new File(uploadPath, path);
-        file.mkdirs();
+    public String makeFolders(String path) { //path: service에서 만든 middel path
+        File file = new File(uploadPath, path); //생성자 호출
+
+        // static 아님 >> 객체화하고 주소값.(file.) 으로 호출했기 때문에
+        // 리턴타입은 boolean >> if()안에서 호출했기 때문에
+        // 파라미터는 없음 >> 호출 때 인자를 보내지 않았기 때문에
+        // 메소드명은 >> exists였다.
+
+        if(!file.exists()) {
+            file.mkdirs();
+        }
         return file.getAbsolutePath(); // AbsolutePath: 절대 경로
 
     }
@@ -66,10 +74,10 @@ public class MyFileUtils {
     }
 }
 
-class Test {
-    public static void main(String[] args) {
-        MyFileUtils myFileUtils = new MyFileUtils("C:/temp");
-        String randomFileName = myFileUtils.makeRandomFileName("119255016.1.jpg");
-        System.out.println(randomFileName);
-    }
-}
+//class Test {
+//    public static void main(String[] args) {
+//        MyFileUtils myFileUtils = new MyFileUtils("C:/temp");
+//        String randomFileName = myFileUtils.makeRandomFileName("119255016.1.jpg");
+//        System.out.println(randomFileName);
+//    }
+//}

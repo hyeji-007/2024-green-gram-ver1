@@ -2,6 +2,8 @@
 file:
   directory: D:\khj\2024-02\download\greengram_ver1
 
+default-page-size: 20
+
 # mybatis setting
 mybatis:
   mapper-locations: xml/**/*.xml

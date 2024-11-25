@@ -2,9 +2,7 @@ package com.green.greengramver1.feed;
 
 import com.green.greengramver1.common.MyFileUtils;
 import com.green.greengramver1.common.model.ResultResponse;
-import com.green.greengramver1.feed.model.FeedPicDto;
-import com.green.greengramver1.feed.model.FeedPostReq;
-import com.green.greengramver1.feed.model.FeedPostRes;
+import com.green.greengramver1.feed.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -59,6 +57,17 @@ public class FeedService {
         res.setPics(picsStr);
 
         return res;
+    }
+
+    public List<FeedGetRes> getFeedList(FeedGetReq p) {
+        List<FeedGetRes> list = mapper.selFeedList(p);
+        //사진 매핑
+        for (FeedGetRes res : list) {
+            //DB에서 각 피드에 맞는 사진 정보를 가져온다.
+            List<String> picList = mapper.selFeedPicList(res.getFeedId());
+            res.setPics(picList);
+        }
+        return list;
     }
 
 

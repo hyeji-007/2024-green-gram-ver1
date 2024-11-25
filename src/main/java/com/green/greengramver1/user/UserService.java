@@ -19,6 +19,7 @@ public class UserService {
     private final UserMapper mapper;
     private final MyFileUtils myFileUtils;
 
+
     public int postSignUp(MultipartFile pic, UserSignUpReq p) {
         //프로필 이미지 파일 처리
         //String savedPicName = myFileUtils.makeRandomFileName(pic.getOriginalFilename());
