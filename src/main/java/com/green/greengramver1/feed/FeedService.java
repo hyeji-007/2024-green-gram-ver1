@@ -62,6 +62,9 @@ public class FeedService {
     public List<FeedGetRes> getFeedList(FeedGetReq p) {
         List<FeedGetRes> list = mapper.selFeedList(p);
         //사진 매핑
+        // n + 1 이슈 = 성능 저하 있어서 좋지 않음
+        // feed list 가져오는 1회 + 튜플 6개 = 7번 조회 -> 성능 저하
+        // but 가져올 select 가 많으면 나누는게 좋음 , 적으면 select 한번에 끝내는게 좋음
         for (FeedGetRes res : list) {
             //DB에서 각 피드에 맞는 사진 정보를 가져온다.
             List<String> picList = mapper.selFeedPicList(res.getFeedId());

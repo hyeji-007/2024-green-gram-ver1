@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.ToString;
 
 //@Setter와 생성자가 있으면 Setter을 먼저 사용한다.
+//immutable : 1. setter x
+//            2. 멤버 필드 private final 선언
+
 @Getter
 @ToString
 public class Paging {

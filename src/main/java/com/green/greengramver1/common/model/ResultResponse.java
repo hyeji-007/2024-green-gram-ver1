@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
+@Builder //밖에서 변경 가능, immutable (<-> @Setter 안에서 값 변경 가능)
 public class ResultResponse<T> {
     @Schema(title = "결과 메시지")
     private String resultMessage;
