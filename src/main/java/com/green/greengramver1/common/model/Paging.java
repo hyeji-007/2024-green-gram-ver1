@@ -12,7 +12,12 @@ import lombok.ToString;
 @Getter
 @ToString
 public class Paging {
+    //final static: 상수(값을 한번만 초기화)
+    //private: 외부에서 직접 접근하지 못하도록 제한.
+    //final: 값을 한 번만 초기화하며 이후 변경 불가능.
+    //static: 모든 객체에서 공유되며 클래스 레벨에서 관리.
     private final static int DEFAULT_PAGE_SIZE = 20;
+
     @Schema(example = "1", description = "Selected Page")
     private int page;
     @Schema(example = "30", description = "item count per page")

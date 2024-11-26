@@ -51,7 +51,8 @@ public class MyFileUtils {
         return fileName.substring(lastIdx);
     }
 
-    //랜덤파일명 생성 , 상속받은 메소드 재정의 >> 오버라이딩
+    // 랜덤파일명 생성
+    // 상속받은 메소드 재정의 >> 오버라이딩
     // 똑같은 메소드명 여러개 만듦 >> 오버로딩(파라미터가 다르면 ok, 호출할 때 구분할 수 있어야 한다.)
     public String makeRandomFileName() {
         return UUID.randomUUID().toString();
