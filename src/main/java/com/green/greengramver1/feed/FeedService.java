@@ -37,9 +37,9 @@ public class FeedService {
 
         List<String> picsStr = new ArrayList<String>();
 
+        // 사진 이름 다르게 바뀌도록 랜덤 이름 출력
         for (MultipartFile pic : pics) {
             String savedPicName = myFileUtils.makeRandomFileName(pic);
-            // 사진 이름 다르게 바뀌도록 랜덤 이름 출력
             String filePath = String.format("%s/%s", middlePath, savedPicName);
 
             try {
@@ -47,9 +47,9 @@ public class FeedService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            feedPicDto.setPic(savedPicName);
-            mapper.insFeedPic(feedPicDto);
-            picsStr.add(savedPicName);
+            feedPicDto.setPic(savedPicName); //feedPicDto 객체에 사진 파일명을 저장
+            mapper.insFeedPic(feedPicDto); //mapper를 통해 데이터베이스에 사진 정보를 저장
+            picsStr.add(savedPicName); //API 응답용 리스트인 picsStr에 사진 파일명을 추가
         }
 
         FeedPostRes res = new FeedPostRes();

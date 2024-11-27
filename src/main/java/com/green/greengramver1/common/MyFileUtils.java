@@ -68,7 +68,7 @@ public class MyFileUtils {
         return makeRandomFileName(file.getOriginalFilename()); //확장자명 얻기 위해, getOriginalFilename(): return 메소드
     }
 
-    //파일을 원하는 경로에 저장
+    //파일을 원하는 경로에 저장 (호출자마다 사용 방식이 다르니 예외 처리)
     public void transferTo(MultipartFile mf, String path) throws IOException {
         File file = new File(uploadPath, path);
         mf.transferTo(file);
