@@ -34,7 +34,7 @@ public class UserService {
         int result = mapper.insUser(p); //insert 처리
 
         if(pic == null) {
-            return result;
+            return result; //파일 관련 작업을 생략하고 사용자 정보만 DB에 저장, result 값을 반환하여 작업 완료
         }
 
         // 저장 위치 만든다.
@@ -55,20 +55,19 @@ public class UserService {
     }
 
     public UserSignInRes postSignIn(UserSignInReq p) {
+
         UserSignInRes res = mapper.selUserForSignIn(p);
-        if(res == null) { //해당하는 아이디가 없음
+        if( res == null ) { //아이디 없음
             res = new UserSignInRes();
             res.setMessage("아이디를 확인해 주세요.");
             return res;
-        }
-
-        if(  !BCrypt.checkpw(p.getUpw(), res.getUpw()) ) { // 비밀번호가 다를시
+        } else if( !BCrypt.checkpw(p.getUpw(), res.getUpw()) ) { //비밀번호가 다를시
             res = new UserSignInRes();
             res.setMessage("비밀번호를 확인해 주세요.");
             return res;
         }
-
         res.setMessage("로그인 성공");
         return res;
+
     }
 }

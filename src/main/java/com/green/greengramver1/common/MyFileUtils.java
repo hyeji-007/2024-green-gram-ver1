@@ -30,7 +30,7 @@ public class MyFileUtils {
     // path = "ddd/aaa"
     // D:\khj\2024-02\download\greengram_ver1/ddd/aaa >> uploadPath에 저장
     // 디렉토리 생성
-    public String makeFolders(String path) { //path: service에서 만든 middel path
+    public String makeFolders(String path) { //path: service에서 만든 middle path
         File file = new File(uploadPath, path); //생성자 호출
 
         // static 아님 >> 객체화하고 주소값.(file.) 으로 호출했기 때문에
@@ -70,8 +70,9 @@ public class MyFileUtils {
 
     //파일을 원하는 경로에 저장 (호출자마다 사용 방식이 다르니 예외 처리)
     public void transferTo(MultipartFile mf, String path) throws IOException {
-        File file = new File(uploadPath, path);
-        mf.transferTo(file);
+        File file = new File(uploadPath, path); //파일 객체 생성: 두 값을 결합하여 전체 경로를 만들기
+        mf.transferTo(file); //MultipartFile의 데이터를 지정된 file 위치로 복사
+        // 클라이언트가 업로드한 파일을 서버 파일 시스템에 저장하는 작업을 수행합
     }
 }
 
