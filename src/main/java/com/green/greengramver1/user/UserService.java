@@ -55,7 +55,6 @@ public class UserService {
     }
 
     public UserSignInRes postSignIn(UserSignInReq p) {
-
         UserSignInRes res = mapper.selUserForSignIn(p);
         if( res == null ) { //아이디 없음
             res = new UserSignInRes();
@@ -68,6 +67,5 @@ public class UserService {
         }
         res.setMessage("로그인 성공");
         return res;
-
     }
 }
